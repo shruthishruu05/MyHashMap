@@ -2,72 +2,63 @@ package com.bridgelabz.linkedlist;
 
 public class LinkedList<K extends Comparable <K>> {
 	
-	public INode head;
-	public INode tail;
+	public INode<K> head;
+	public INode<K> tail;
+	
 	public LinkedList() {
-		this.head = head;
-		this.tail = tail;
+		this.head = null;
+		this.tail = null;
 	}
-	public void add(INode newNode)
-	{
-		if(this.tail==null) {
-			this.tail = newNode;
-		}
-		if(this.head==null) {
+	
+	public void add(INode<K> newNode) {
+		if(head == null) {
 			this.head = newNode;
 		}
-		else
-		{
-			INode tempNode = this.head;
-			this.head = newNode;
-			this.head.setNext(tempNode);
-		}
-	}
-	public void appendNodes(INode newNode)
-	{
-		if(this.head==null)
-		{
-			this.head =newNode;
-		}
-		if(this.tail==null) {    
+		if(tail == null) {
 			this.tail = newNode;
 		}
-		else
-		{
-			INode tempNode =newNode;
-			tempNode.setNext(this.head);
+		else {
+			newNode.setNext(this.head);
 			this.head = newNode;
 		}
 	}
 	
-	public void printLinkedList()
-	{
-		System.out.println("My nodes: "+head );
-	}
-	public void insert(INode newNode)
-	{
-		this.head.setNext(newNode);
-		newNode.setNext(this.tail);
-		
-	}
-	public Object pop()
-	{
-		INode tempNode = this.head;
-		this.head = (INode) this.head.getNext();
-		return  tempNode.getKey();	
-	}
-	public Object popLast()
-	{
-		INode temporaryNode = this.head;
-		while(!temporaryNode.getNext().equals(this.tail))
-		{
-			temporaryNode = temporaryNode.getNext();
+	public void append(INode<K> newNode) {
+		if(head == null) {
+			this.head = newNode;
 		}
-		this.tail = temporaryNode;
-		temporaryNode = temporaryNode.getNext();
-		this.tail.setNext(null);
-		return temporaryNode;
+		if(tail == null) {
+			this.tail = newNode;
+		}
+		else {
+			this.tail.setNext(newNode);
+			this.tail = newNode;
+		}
 	}
+	
+	public void insert(INode<K> prevNode , INode<K> newNode) {
+		INode<K> tempNode = prevNode.getNext();
+		prevNode.setNext(newNode);
+		newNode.setNext(tempNode);
+	}
+	
+	public INode<K> pop(){
+		INode<K> tempNode = this.head;
+		this.head = this.head.getNext();
+		return tempNode;
+	}
+	
+	public INode<K> popLast(){
+		INode<K> tempNode= this.head;
+		while(!tempNode.getNext().equals(this.tail)) {
+			tempNode = tempNode.getNext();
+		}
+		this.tail = tempNode;
+		tempNode = tempNode.getNext();
+		this.tail.setNext(null);
+		return tempNode;
+	}
+	
 	public INode<K> search(K key) {
 		INode<K> tempNode = this.head;
 		while(tempNode != null) {
@@ -79,36 +70,40 @@ public class LinkedList<K extends Comparable <K>> {
 		return null;
 	}
 	
-	public void insertAfter(INode nodeAfter,INode node) {
-		INode tempNode = this.head;
-		while(!tempNode.equals(nodeAfter)) {
+	
+	public INode<K> delete(K key){
+		INode<K> tempNode = this.head;
+		while(tempNode != null) {
+			if(tempNode.getNext().getKey().equals(key)) {
+				INode<K> deletedNode = tempNode.getNext();
+				tempNode.setNext(deletedNode.getNext());
+				return deletedNode;
+			}
 			tempNode = tempNode.getNext();
 		}
-		tempNode.setNext(node);
-		node.setNext(this.tail);	
+		return null;
 	}
-	public void deleteAt(INode node) {
-		INode previous=this.head;
-		INode current = this.head;
-		while(!current.equals(node)) {
-			previous = current;
-			current=current.getNext();
+	
+	public int size() {
+		int count = 0;
+		INode<K> tempNode = this.head;
+		while(tempNode != null) {
+			count++;
+			tempNode = tempNode.getNext();
 		}
-		previous.setNext(current.getNext());
-		current.setNext(null);
+		return count;
 	}
-	public void ascendingEntry(INode<K> newNode) {
-		INode<K> tempNode;
-		if(this.head == null || ((Comparable<K>) this.head.getKey()).compareTo(newNode.getKey())>0) {
-			newNode.setNext(this.head);
-			this.head = newNode;
+	
+	public void display() {
+		INode<K> tempNode = this.head;
+		while(tempNode.getNext() != null) {
+			System.out.print(tempNode.getKey()+" -> ");
+			tempNode = tempNode.getNext();
 		}
-		else {
-			tempNode = this.head;
-			while(tempNode.getNext()!= null && ((Comparable<K>) tempNode.getNext().getKey()).compareTo(newNode.getKey())<0)
-				tempNode = tempNode.getNext();
-			newNode.setNext(tempNode.getNext());
-			tempNode.setNext(newNode);
-		}
+		System.out.println(tempNode.getKey());
+	}
+	
+	public String toString() {
+		return head.toString();
 	}
 }
