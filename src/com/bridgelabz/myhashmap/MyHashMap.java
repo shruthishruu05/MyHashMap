@@ -44,6 +44,13 @@ public class MyHashMap<K extends Comparable<K>,V extends Comparable <V>> {
 		}
 	}
 	
+	public void remove(K key){
+		int index = getBucketIndex(key);
+		LinkedList<K> myLinkedList = myBucketArray.get(index);
+		if(myLinkedList == null) return;
+		MyMapNode<K,V> myMapNode = (MyMapNode<K,V>)myLinkedList.delete(key); 
+		System.out.println("Deleted (key="+myMapNode.getKey()+",value="+myMapNode.getValue()+")");
+	}
 	@Override
 	public String toString() {
 		
