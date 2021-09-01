@@ -36,7 +36,6 @@ public class MyMapNode<K, V> implements INode<K> {
 	public V getValue() {
 		return value;
 	}
-	
 	public void setValue(V value) {
 		this.value = value;
 	}
