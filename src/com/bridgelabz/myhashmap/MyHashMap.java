@@ -53,7 +53,6 @@ public class MyHashMap<K extends Comparable<K>,V extends Comparable <V>> {
 	}
 	@Override
 	public String toString() {
-		
 		return "MyHashMapNodes{" +myBucketArray+ "}";
 	}
 	
