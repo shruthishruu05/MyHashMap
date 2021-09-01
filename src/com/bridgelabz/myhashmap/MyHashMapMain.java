@@ -25,5 +25,4 @@ public class MyHashMapMain {
 			System.out.println("Frequency of "+word+" : "+frequency);
 		}
 	}
-
 }
