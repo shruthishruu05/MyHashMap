@@ -23,7 +23,6 @@ public class MyHashMap<K extends Comparable<K>, V extends Comparable<V>> {
 			myMapNode.setValue(value);
 		}
 	}
-
 	@Override
 	public String toString() {
 		return "Hash Map{" + hashLinkedList + "}";
